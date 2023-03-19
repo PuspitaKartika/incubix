@@ -4,8 +4,16 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String bulan = 'Januari';
+  List<String> kalender = ['Januari', 'Februari', 'Maret'];
 
   @override
   Widget build(BuildContext context) {
@@ -23,64 +31,51 @@ class MyApp extends StatelessWidget {
             Icon(Icons.search),
           ],
         ),
-        body: Container(
-          margin: EdgeInsets.all(30),
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Hello", style: TextStyle(
-                fontSize: 30
-              ),),
-              Text("Hi",style: TextStyle(
-                  fontSize: 30
-              ),),
-              SizedBox(height: 30,),
-              Text("spaceEvenly"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Hello", style: TextStyle(
-                      fontSize: 30
-                  ),),
-                  Text("Hi",style: TextStyle(
-                      fontSize: 30
-                  ),),
-                ],
+        body: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.all(30),
+              width: double.infinity,
+              //elevatedbutton
+              child: ElevatedButton(
+                onPressed: (){},
+                child: Text("tombol"),
               ),
-              SizedBox(height: 30,),
-              Text("spaceBetween"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    color: Colors.red,
-                    child: Text("Hello", style: TextStyle(
-                        fontSize: 30
-                    ),),
-                  ),
-                  Container(
-                    color: Colors.green,
-                    child: Text("Hi",style: TextStyle(
-                        fontSize: 30
-                    ),),
-                  ),
-                ],
+            ),
+            Container(
+              margin: EdgeInsets.all(30),
+              child: TextButton(
+                onPressed: (){},
+                child: Text ("lupa password"),
               ),
-              SizedBox(height: 30,),
-              Row(
-                children: [
-                  Text("Hello", style: TextStyle(
-                      fontSize: 30
-                  ),),
-                  SizedBox(width: 30,),
-                  Text("Hi",style: TextStyle(
-                      fontSize: 30
-                  ),),
-                ],
-              )
-            ],
-          ),
+            ),
+            Container(
+              margin: EdgeInsets.all(30),
+              child: OutlinedButton(
+                onPressed: (){},
+                child: Text ("lupa password"),
+              ),
+            ),
+            Container(
+              child: IconButton(onPressed: (){},
+                  icon: Icon(Icons.point_of_sale, color: Colors.green,)),
+            ),
+
+           // drop down
+            DropdownButton<String>(
+              value: bulan,
+              onChanged: (newValue){
+                setState(() {
+                  bulan = newValue!;
+                });
+              },
+              items: kalender.map<DropdownMenuItem<String>>((String value){
+                return DropdownMenuItem<String>(
+                  value: value,
+                    child: Text(value));
+              }).toList(),
+               )
+          ],
         ),
 
       )
