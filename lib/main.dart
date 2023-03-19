@@ -23,124 +23,68 @@ class MyApp extends StatelessWidget {
             Icon(Icons.search),
           ],
         ),
-        body: Row(
-          children: [
-            Column(
-              children: [
-                //BIASA
-                Container(
-                  margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.all(10),
-                  width: 100,
-                  height: 100,
-                  color: Colors.green,
-                  child: Text(
-                    "Hiiii", style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
-                  ),
-                  ),
-                ),
-
-                //circle
-                Container(
-                  margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.all(10),
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.green,
-                  ),
-                  child: Text(
-                    "Hiiii", style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
-                  ),
-                  ),
-                ),
-
-                //radius
-                Container(
-                  margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.all(10),
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.green,
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Hiiii", style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                    ),
-                    ),
-                  ),
-                ),
-
-                Container(
-                  margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.all(10),
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      width: 5,
-                      color: Colors.green
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Hiiii", style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                    ),
-                    ),
-                  ),
-                ),
-
-
-              ],
-            ),
-
-            Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.all(10),
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
+        body: Container(
+          margin: EdgeInsets.all(30),
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Hello", style: TextStyle(
+                fontSize: 30
+              ),),
+              Text("Hi",style: TextStyle(
+                  fontSize: 30
+              ),),
+              SizedBox(height: 30,),
+              Text("spaceEvenly"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text("Hello", style: TextStyle(
+                      fontSize: 30
+                  ),),
+                  Text("Hi",style: TextStyle(
+                      fontSize: 30
+                  ),),
+                ],
+              ),
+              SizedBox(height: 30,),
+              Text("spaceBetween"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
                     color: Colors.red,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(30,10)
+                    child: Text("Hello", style: TextStyle(
+                        fontSize: 30
+                    ),),
+                  ),
+                  Container(
+                    color: Colors.green,
+                    child: Text("Hi",style: TextStyle(
+                        fontSize: 30
+                    ),),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30,),
+              Row(
+                children: [
+                  Text("Hello", style: TextStyle(
+                      fontSize: 30
+                  ),),
+                  SizedBox(width: 30,),
+                  Text("Hi",style: TextStyle(
+                      fontSize: 30
+                  ),),
+                ],
+              )
+            ],
+          ),
+        ),
 
-                      )
-                    ]
-                  ),
-                  child: Text(
-                    "Hiiii", style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
-                  ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        )
-      ),
+      )
+
     );
   }
 }
