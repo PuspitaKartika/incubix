@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     Widget header() {
@@ -16,13 +16,12 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset("assets/logo.png"),
             Text(
-              "Welcome Back, ",
+              "Create Account",
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             Text(
-              "Sign in to continue",
+              "Sign up",
               style: TextStyle(fontSize: 16, color: Colors.grey),
             )
           ],
@@ -30,9 +29,70 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
 
-    Widget inputEmail() {
+    Widget inputName() {
       return Container(
         margin: EdgeInsets.only(top: 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Name",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Color(0xff323465)),
+                ),
+                child: Center(
+                  child: TextField(
+                    decoration: InputDecoration.collapsed(
+                        hintText: "masukan nama anda"),
+                  ),
+                ))
+          ],
+        ),
+      );
+    }
+
+    Widget inputUserName() {
+      return Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "User Name",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Color(0xff323465)),
+                ),
+                child: Center(
+                  child: TextField(
+                    decoration: InputDecoration.collapsed(hintText: "Masukan user name anda"),
+                  ),
+                ))
+          ],
+        ),
+      );
+    }
+
+    Widget inputEmail() {
+      return Container(
+        margin: EdgeInsets.only(top: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,8 +112,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: Center(
                   child: TextField(
-                    decoration:
-                        InputDecoration.collapsed(hintText: "masukan e-mail"),
+                    decoration: InputDecoration.collapsed(
+                        hintText: "masukan e-mail anda"),
                   ),
                 ))
           ],
@@ -61,9 +121,9 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
 
-    Widget inputPassword() {
+    Widget pass() {
       return Container(
-        margin: EdgeInsets.only(top: 5),
+        margin: EdgeInsets.only(top: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -82,18 +142,10 @@ class _LoginPageState extends State<LoginPage> {
                   border: Border.all(color: Color(0xff323465)),
                 ),
                 child: Center(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          obscureText: true,
-                          decoration: InputDecoration.collapsed(
-                              hintText: "masukan password"),
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () {}, icon: Icon(Icons.remove_red_eye))
-                    ],
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration.collapsed(
+                        hintText: "masukan password anda"),
                   ),
                 ))
           ],
@@ -101,44 +153,31 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
 
-    Widget login() {
+    Widget register() {
       return Container(
-        margin: EdgeInsets.only(top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              "Forgot passwod?",
-              style: TextStyle(color: Color(0xff323465)),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/home');
-              },
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Color(0xff323465),
-                ),
-                child: Center(
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
+          margin: EdgeInsets.only(top: 20),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/login');
+            },
+            child: Container(
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color(0xff323465),
+              ),
+              child: Center(
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
               ),
-            )
-          ],
-        ),
-      );
+            ),
+          ));
     }
 
     Widget footer() {
@@ -148,15 +187,15 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "New user ?",
+              "Already have an account?",
               style: TextStyle(color: Colors.grey),
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/register');
+                  Navigator.pushNamed(context, '/login');
                 },
                 child: Text(
-                  "Sign Up",
+                  "Login",
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Color(0xff323465)),
                 ))
@@ -173,9 +212,11 @@ class _LoginPageState extends State<LoginPage> {
           //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             header(),
+            inputName(),
+            inputUserName(),
             inputEmail(),
-            inputPassword(),
-            login(),
+            pass(),
+            register(),
             SizedBox(
               height: 180,
             ),

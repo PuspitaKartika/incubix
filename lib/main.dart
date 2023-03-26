@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:incubix/pages/home.dart';
 import 'package:incubix/pages/login.dart';
+import 'package:incubix/pages/register.dart';
 import 'package:incubix/pages/splash.dart';
 
 void main() {
@@ -18,16 +20,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => SplashScreen(),
-        '/login' : (context) => LoginPage(),
-      }
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, routes: {
+      '/': (context) => SplashScreen(),
+      '/login': (context) => LoginPage(),
+      '/register': (context) => RegisterPage(),
+      '/home': (context) => HomePage(),
+    });
   }
 }
-
-
-
-
