@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:incubix/controller/auth_controller.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -8,6 +9,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final emailEdc = TextEditingController();
+  final passEdc = TextEditingController();
+  final authC = AuthController();
+
   @override
   Widget build(BuildContext context) {
     Widget header() {
@@ -52,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: Center(
                   child: TextField(
+                    controller: emailEdc,
                     decoration:
                         InputDecoration.collapsed(hintText: "masukan e-mail"),
                   ),
@@ -86,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Expanded(
                         child: TextField(
+                          controller: passEdc,
                           obscureText: true,
                           decoration: InputDecoration.collapsed(
                               hintText: "masukan password"),
@@ -116,7 +124,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/home');
+                authC.login(emailEdc.text, passEdc.text);
+                // Navigator.pushNamed(context, '/home');
               },
               child: Container(
                 width: double.infinity,
