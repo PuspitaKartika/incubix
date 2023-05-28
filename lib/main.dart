@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:incubix/bloc/register/register_cubit.dart';
 
 import 'package:incubix/pages/splash.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,9 @@ class MyWidget extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => LoginCubit(),
+        ),
+        BlocProvider(
+          create: (context) => RegisterCubit(),
         ),
       ],
       child: MaterialApp(

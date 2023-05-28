@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:incubix/bloc/register/register_cubit.dart';
+import 'package:incubix/utils/routes.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -8,6 +11,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final emailEdc = TextEditingController();
+  final passEdc = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Widget header() {
@@ -82,7 +88,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 child: Center(
                   child: TextField(
-                    decoration: InputDecoration.collapsed(hintText: "Masukan user name anda"),
+                    decoration: InputDecoration.collapsed(
+                        hintText: "Masukan user name anda"),
                   ),
                 ))
           ],
@@ -112,6 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 child: Center(
                   child: TextField(
+                    controller: emailEdc,
                     decoration: InputDecoration.collapsed(
                         hintText: "masukan e-mail anda"),
                   ),
@@ -143,6 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 child: Center(
                   child: TextField(
+                    controller: passEdc,
                     obscureText: true,
                     decoration: InputDecoration.collapsed(
                         hintText: "masukan password anda"),
@@ -158,7 +167,10 @@ class _RegisterPageState extends State<RegisterPage> {
           margin: EdgeInsets.only(top: 20),
           child: GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/login');
+              context
+                  .read<RegisterCubit>()
+                  .register(email: emailEdc.text, password: passEdc.text);
+              //Navigator.pushNamed(context, '/login');
             },
             child: Container(
               width: double.infinity,
@@ -207,21 +219,48 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 30),
-        color: Colors.white,
-        child: ListView(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            header(),
-            inputName(),
-            inputUserName(),
-            inputEmail(),
-            pass(),
-            register(),
-            SizedBox(
-              height: 180,
-            ),
-            footer()
-          ],
+        child: BlocListener<RegisterCubit, RegisterState>(
+          listener: (context, state) {
+            if (state is RegisterLoading) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(content: Text('Loading..')));
+            }
+            if (state is RegisterFailure) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text(state.msg),
+                  backgroundColor: Colors.red,
+                ));
+            }
+            if (state is RegisterSuccess) {
+              // context.read<AuthCubit>().loggedIn();
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text(state.msg),
+                  backgroundColor: Colors.green,
+                ));
+              Navigator.pushNamedAndRemoveUntil(
+                  context, rLogin, (route) => false);
+            }
+          },
+          child: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              header(),
+              inputName(),
+              inputUserName(),
+              inputEmail(),
+              pass(),
+              register(),
+              SizedBox(
+                height: 180,
+              ),
+              footer()
+            ],
+          ),
         ),
       ),
     );

@@ -181,7 +181,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 30),
-        color: Colors.white,
         child: BlocListener<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state is LoginLoading) {

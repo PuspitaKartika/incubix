@@ -15,4 +15,16 @@ class AuthRepo {
       throw e;
     }
   }
+
+  Future<void> register(
+      {required String email, required String password}) async {
+    try {
+      final user = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseException catch (e) {
+      throw e.message ?? 'Something wrong!';
+    } catch (e) {
+      throw e;
+    }
+  }
 }
