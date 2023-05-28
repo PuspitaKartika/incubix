@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:incubix/controller/auth_controller.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:incubix/bloc/login/login_cubit.dart';
+import 'package:incubix/utils/routes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -9,10 +11,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final emailEdc = TextEditingController();
   final passEdc = TextEditingController();
-  final authC = AuthController();
+  bool passInvisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +125,10 @@ class _LoginPageState extends State<LoginPage> {
             ),
             GestureDetector(
               onTap: () {
-                authC.login(emailEdc.text, passEdc.text);
+                context
+                    .read<LoginCubit>()
+                    .login(email: emailEdc.text, password: passEdc.text);
+
                 // Navigator.pushNamed(context, '/home');
               },
               child: Container(
@@ -178,18 +182,46 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 30),
         color: Colors.white,
-        child: ListView(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            header(),
-            inputEmail(),
-            inputPassword(),
-            login(),
-            SizedBox(
-              height: 180,
-            ),
-            footer()
-          ],
+        child: BlocListener<LoginCubit, LoginState>(
+          listener: (context, state) {
+            if (state is LoginLoading) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(content: Text('Loading..')));
+            }
+            if (state is LoginFailure) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text(state.msg),
+                  backgroundColor: Colors.red,
+                ));
+            }
+            if (state is LoginSuccess) {
+              // context.read<AuthCubit>().loggedIn();
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text(state.msg),
+                  backgroundColor: Colors.green,
+                ));
+              Navigator.pushNamedAndRemoveUntil(
+                  context, rHome, (route) => false);
+            }
+          },
+          child: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              header(),
+              inputEmail(),
+              inputPassword(),
+              login(),
+              SizedBox(
+                height: 180,
+              ),
+              footer()
+            ],
+          ),
         ),
       ),
     );
