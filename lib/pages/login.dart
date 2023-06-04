@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:incubix/bloc/login/login_cubit.dart';
 import 'package:incubix/pages/home.dart';
+import 'package:incubix/pages/phone_auth_screen.dart';
 import 'package:incubix/utils/routes.dart';
 
 class LoginPage extends StatefulWidget {
@@ -252,7 +253,12 @@ class _LoginPageState extends State<LoginPage> {
                     width: 30.0,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PhoneAuthScreen()));
+                    },
                     child: const CircleAvatar(
                       radius: 20.0,
                       backgroundImage: NetworkImage(
